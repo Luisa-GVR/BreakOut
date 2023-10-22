@@ -1,7 +1,14 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class PuntuacionTimer extends javax.swing.JFrame {
 
-    public PuntuacionTimer() {
+    public PuntuacionTimer(PTBoard ptBoard) {
         initComponents();
+        JPanel p = new JPanel(new BorderLayout());
+
+        p.add(ptBoard);
+        setContentPane(p);
     }
 
 

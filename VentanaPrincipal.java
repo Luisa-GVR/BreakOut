@@ -1,10 +1,25 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class VentanaPrincipal extends javax.swing.JFrame {
-
-
+    PTBoard ptBoard;
+    PuntuacionTimer sv2;
     public VentanaPrincipal() {
         initComponents();
-        PuntuacionTimer sv2 = new PuntuacionTimer();
+
+
         setLocationRelativeTo(null);
+
+        VPBoard vpBoard = new VPBoard();
+        JPanel p = new JPanel(new BorderLayout());
+
+        p.add(vpBoard, BorderLayout.CENTER);
+        setContentPane(p);
+
+        //Abrir ventana 2
+        ptBoard = new PTBoard();
+        sv2 = new PuntuacionTimer(ptBoard);
+
 
         int x = getX() - sv2.getWidth();
         int y = getY() + (getHeight() - sv2.getHeight()) / 2;
@@ -41,10 +56,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
-    boolean pause;
-
+    boolean pause = true;
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {
+
 
         if (evt.getKeyChar() == '+') {
             System.out.println("+:");
@@ -52,11 +67,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             System.out.println("-:");
 
         }
-        if (evt.getKeyChar() == ' '){
-            System.out.println("pausar no");
+
+
+        //pausar
+        if (evt.getKeyChar() == 'p'){
+
+            if (pause){
+                ptBoard.setPausado(false);
+                ptBoard.pausar();
+
+            }
+
             pause = false;
-        } else if (evt.getKeyChar() == 'p'){
-            System.out.println("pausar si");
+        } else if (evt.getKeyChar() == ' '){
+            if (!pause){
+                ptBoard.setPausado(true);
+                ptBoard.pausar();
+
+            }
             pause = true;
         }
 
