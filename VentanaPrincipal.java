@@ -23,6 +23,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         vpBoard = new VPBoard();
         JPanel p = new JPanel(new BorderLayout());
 
+
         p.add(vpBoard, BorderLayout.CENTER);
 
         //agregar plataforma

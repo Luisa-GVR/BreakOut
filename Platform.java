@@ -24,26 +24,33 @@ public class Platform {
     }
 
     public void moveRight() {
-        movingLeft = false;
         movingRight = true;
+        movingLeft = false;
     }
 
-    public void stop() {
+    public void stopMoving() {
         movingLeft = false;
         movingRight = false;
     }
 
-    public void update() {
+    public void run() {
+        while (true) {
+            movePlatform();
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void movePlatform() {
         if (movingLeft && platformX > 0) {
             platformX -= SPEED;
-        } else if (movingRight && platformX < VentanaPrincipal.WIDTH - WIDTH) {
+        }
+        if (movingRight && platformX < VentanaPrincipal.WIDTH - WIDTH) {
             platformX += SPEED;
         }
     }
 
-    public void paint(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.BLACK);
-        g2.fill(new Rectangle2D.Double(platformX, platformY, WIDTH, HEIGHT));
-    }
 }
