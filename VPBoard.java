@@ -11,6 +11,16 @@ public class VPBoard extends JComponent implements Runnable{
     Ball ball;
 
 
+    int velocidad = 10;
+
+    public int getVelocidad() {
+        return velocidad;
+    }
+
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
+    }
+
     public VPBoard(){
 
         ballObj = new Ellipse2D.Double(20,320,20,20);
@@ -39,6 +49,7 @@ public class VPBoard extends JComponent implements Runnable{
     }
 
 
+
     @Override
     public void run() {
         while ( true ) {
@@ -55,5 +66,14 @@ public class VPBoard extends JComponent implements Runnable{
         if (ball != null) {
             ball.pausar();
         }
+    }
+
+    public void decreaseBallSpeed() {
+        ball.setVelocidad(velocidad--);
+    }
+
+    public void increaseBallSpeed() {
+        ball.setVelocidad(velocidad++);
+
     }
 }

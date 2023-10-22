@@ -1,49 +1,60 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class VentanaPrincipal extends javax.swing.JFrame implements ActionListener {
     PTBoard ptBoard;
     PuntuacionTimer sv2;
     VPBoard vpBoard;
+    VPPlatform vpPlatform;
+
+    Platform platform;
 
     public VentanaPrincipal() {
         initComponents();
-
-
         setLocationRelativeTo(null);
 
-        vpBoard = new VPBoard();
 
+        JPanel mainPanel = new JPanel(new BorderLayout());
+
+        //agregar pelota
+        vpBoard = new VPBoard();
         JPanel p = new JPanel(new BorderLayout());
 
         p.add(vpBoard, BorderLayout.CENTER);
-        setContentPane(p);
 
+        //agregar plataforma
 
+        platform = new Platform();
+        vpPlatform = new VPPlatform(platform);
+        p.add(vpPlatform, BorderLayout.SOUTH);
 
-        //Abrir ventana 2
+        mainPanel.add(p, BorderLayout.CENTER);
+
+        //cronometro
         ptBoard = new PTBoard();
+        p.add(ptBoard, BorderLayout.EAST);
+
+        setContentPane(mainPanel);
+        // Abrir ventana 2
         sv2 = new PuntuacionTimer(ptBoard);
-
-
         int x = getX() - sv2.getWidth();
         int y = getY() + (getHeight() - sv2.getHeight()) / 2;
-
-        sv2.setLocation(x,y);
+        sv2.setLocation(x, y);
         sv2.setVisible(true);
     }
 
-
     @SuppressWarnings("unchecked")
     private void initComponents() {
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("VentanaPrincipal"); // NOI18N
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
+
         addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+            public void keyTyped(KeyEvent evt) {
                 formKeyTyped(evt);
             }
         });
@@ -60,46 +71,68 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>
+    }
 
     boolean pause = true;
 
-    private void formKeyTyped(java.awt.event.KeyEvent evt) {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        vpPlatform.repaint();
+    }
 
+    private void formKeyTyped(KeyEvent evt) {
+        // Platform
+        if (evt.getKeyChar() == 'd') {
+            System.out.println("derecha");
+            platform.moveRight();
 
+        } else if (evt.getKeyChar() == 'a') {
+            platform.moveLeft();
+            System.out.println("izquierda");
+        }
+
+        //velocidad
         if (evt.getKeyChar() == '+') {
-            System.out.println("+:");
+
+            if (vpBoard.getVelocidad() < 50){
+                vpBoard.increaseBallSpeed();
+                System.out.println(vpBoard.getVelocidad());
+            }
+
+
         } else if (evt.getKeyChar() == '-') {
-            System.out.println("-:");
+
+            if (vpBoard.getVelocidad() > 10){
+                vpBoard.decreaseBallSpeed();
+                System.out.println(vpBoard.getVelocidad());
+
+            }
+
 
         }
 
 
-        //pausar
-        if (evt.getKeyChar() == 'p'){
 
-            if (pause){
+
+        // Pausar
+        if (evt.getKeyChar() == 'p') {
+            if (pause) {
                 ptBoard.setPausado(false);
                 ptBoard.pausar();
                 vpBoard.pausarBall();
             }
-
             pause = false;
-        } else if (evt.getKeyChar() == ' '){
-            if (!pause){
+        } else if (evt.getKeyChar() == ' ') {
+            if (!pause) {
                 ptBoard.setPausado(true);
                 ptBoard.pausar();
                 vpBoard.pausarBall();
-
             }
             pause = true;
         }
-
     }
 
-
     public static void main(String args[]) {
-
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -123,6 +156,4 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
     }
-
-
 }
