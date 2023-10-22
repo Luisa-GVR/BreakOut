@@ -8,12 +8,13 @@ public class VPBoard extends JComponent implements Runnable{
 
     Thread refresher;
     Ellipse2D.Double ballObj;
+    Ball ball;
 
 
     public VPBoard(){
 
         ballObj = new Ellipse2D.Double(20,320,20,20);
-        Ball ball = new Ball(ballObj);
+        ball = new Ball(ballObj);
         ballAnimator = new Thread(ball);
         ballAnimator.start();
         refresher= new Thread( this);
@@ -47,6 +48,12 @@ public class VPBoard extends JComponent implements Runnable{
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    public void pausarBall() {
+        if (ball != null) {
+            ball.pausar();
         }
     }
 }

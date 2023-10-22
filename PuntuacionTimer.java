@@ -5,6 +5,7 @@ public class PuntuacionTimer extends javax.swing.JFrame {
 
     public PuntuacionTimer(PTBoard ptBoard) {
         initComponents();
+
         JPanel p = new JPanel(new BorderLayout());
 
         p.add(ptBoard);

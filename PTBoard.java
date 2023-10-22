@@ -16,7 +16,7 @@ public class PTBoard extends JComponent implements Runnable {
     }
 
     public PTBoard() { //Refresher...
-        largeFont = new Font("Arial", Font.BOLD, 24);
+        largeFont = new Font("Arial", Font.BOLD, 40);
         timeAnimator = new Thread();
         timeAnimator.start();
         refresher = new Thread(this);

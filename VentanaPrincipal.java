@@ -1,20 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
     PTBoard ptBoard;
     PuntuacionTimer sv2;
+    VPBoard vpBoard;
+
     public VentanaPrincipal() {
         initComponents();
 
 
         setLocationRelativeTo(null);
 
-        VPBoard vpBoard = new VPBoard();
+        vpBoard = new VPBoard();
+
         JPanel p = new JPanel(new BorderLayout());
 
         p.add(vpBoard, BorderLayout.CENTER);
         setContentPane(p);
+
+
 
         //Abrir ventana 2
         ptBoard = new PTBoard();
@@ -75,7 +81,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if (pause){
                 ptBoard.setPausado(false);
                 ptBoard.pausar();
-
+                vpBoard.pausarBall();
             }
 
             pause = false;
@@ -83,6 +89,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if (!pause){
                 ptBoard.setPausado(true);
                 ptBoard.pausar();
+                vpBoard.pausarBall();
 
             }
             pause = true;
