@@ -27,8 +27,13 @@ public class Ball implements Runnable{
     }
 
 
+
+//borrar estos???, son prueba, dejaran de funcionar cuando pongamos los ladrillos XD
+
     public static final int MAX_X = 800;
     public static final int MAX_Y = 600;
+    public static final int DX = 10;
+    public static final int DY = 10;
 
 
 
@@ -41,6 +46,16 @@ public class Ball implements Runnable{
     }
 
     int xPlataforma;
+
+    int puntuacionPlataforma = 0;
+
+    public int getPuntuacionPlataforma() {
+        return puntuacionPlataforma;
+    }
+
+    public void setPuntuacionPlataforma(int puntuacionPlataforma) {
+        this.puntuacionPlataforma = puntuacionPlataforma;
+    }
 
     public int getxPlataforma() {
         return xPlataforma;
@@ -75,15 +90,19 @@ public class Ball implements Runnable{
 
                 if (ballY > 520 && ballY < 532){
                     if (ballX >= xPlataforma -20 && ballX <= (xPlataforma+110)){
+                        setPuntuacionPlataforma(getPuntuacionPlataforma() +1);
                         sY = sY * SIGN;
                     }
 
                 }
 
                 if( ballY > (MAX_Y - 55) ) {
-
                     System.out.println("perder");
+                    pausar();
+
+
                 }
+
                 ballX = ballX + (velocidad * sX) ;
                 ballY = ballY + (velocidad * sY);
                 ball.x = ballX ;

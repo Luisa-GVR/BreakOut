@@ -46,12 +46,13 @@ public class VPPlatform extends JComponent implements Runnable {
     }
 
 
+
     @Override
     public void run() {
         while ( true ) {
             repaint();
             try {
-                Thread.sleep(100L);
+                Thread.sleep(1L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

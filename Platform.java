@@ -52,7 +52,7 @@ public class Platform implements Runnable {
             }
 
             try {
-                Thread.sleep(50L);
+                Thread.sleep(10L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

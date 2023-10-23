@@ -2,14 +2,22 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PTBoard extends JComponent implements Runnable {
+    //timer
 
     private boolean pausado;
     private long startTime;
     private long elapsedTime;
     private Font largeFont;
 
+
     Thread refresher;
     Thread timeAnimator;
+
+    int puntuacionTimer;
+
+    public void setPuntuacionTimer(int puntuacionTimer) {
+        this.puntuacionTimer = puntuacionTimer;
+    }
 
     public void setPausado(boolean pausado) {
         this.pausado = pausado;
@@ -50,7 +58,7 @@ public class PTBoard extends JComponent implements Runnable {
         startTime = System.currentTimeMillis();
         while (true) {
             if (!pausado) {
-
+                System.out.println(puntuacionTimer);
                 long currentTime = System.currentTimeMillis();
                 elapsedTime = currentTime - startTime;
                 repaint();

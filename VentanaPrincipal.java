@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,9 +11,14 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     VPBoard vpBoard;
     VPPlatform vpPlatform;
 
+    int puntuacionBricks = 0;
+    int puntuacionPlataforma = 0;
+
+    private Timer updateTimer;
 
     public VentanaPrincipal() {
         initComponents();
+
         setLocationRelativeTo(null);
 
         JPanel p = new JPanel(new BorderLayout());
@@ -32,9 +38,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
         setContentPane(p);
 
+
         //cronometro
         ptBoard = new PTBoard();
-
 
 
     // Abrir ventana 2
@@ -43,6 +49,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         int y = getY() + (getHeight() - sv2.getHeight()) / 2;
         sv2.setLocation(x, y);
         sv2.setVisible(true);
+
+        updateTimer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ptBoard.setPuntuacionTimer(vpBoard.getPuntuacionPlataformaBoard());
+                vpBoard.setxPlataforma(vpPlatform.platform.getPlatformX());
+            }
+        });
+        updateTimer.start();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -51,6 +67,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         setName("VentanaPrincipal"); // NOI18N
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
+
 
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(KeyEvent evt) {
@@ -68,19 +85,20 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         vpPlatform.repaint();
     }
 
+
     private void formKeyTyped(KeyEvent evt) {
 
-        vpBoard.setxPlataforma( vpPlatform.platform.getPlatformX());
 
         // Platform
-        if (evt.getKeyChar() == 'd') {
+        if (evt.getKeyChar() == 'd' || evt.getKeyChar() == 'D') {
             if (vpPlatform.platform.getPlatformX()<680){
                 if (pause){
                     vpPlatform.moverDerecha();
 
+
                 }
             }
-        } else if (evt.getKeyChar() == 'a') {
+        } else if (evt.getKeyChar() == 'a' || evt.getKeyChar() == 'A') {
             if (vpPlatform.platform.getPlatformX()>0) {
                 if (pause){
                     vpPlatform.moverIzquierda();
@@ -109,22 +127,60 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
 
         // Pausar
-        if (evt.getKeyChar() == 'p') {
-            if (pause) {
+        if (evt.getKeyChar() == 'p' || evt.getKeyChar() == 'P'){
+
+            if (pause){
                 ptBoard.setPausado(false);
                 ptBoard.pausar();
                 vpBoard.pausarBall();
+
+                JPanel panel = new JPanel(new GridLayout(2,1));
+                Border borde = BorderFactory.createLineBorder(Color.BLACK,20 );
+                panel.setBorder(borde);
+
+                JLabel pausadoLabel = new JLabel("P A U S A");
+                pausadoLabel.setHorizontalAlignment(JLabel.CENTER);
+                pausadoLabel.setVerticalAlignment(JLabel.BOTTOM);
+                pausadoLabel.setFont(new Font("Arial", Font.BOLD, 30));
+                pausadoLabel.setForeground(Color.RED);
+                ;
+
+                JLabel pausaMessage = new JLabel ("Presiona 'Espacio' para continuar");
+                pausaMessage.setHorizontalAlignment(JLabel.CENTER);
+                pausaMessage.setVerticalAlignment(JLabel.TOP);
+                pausaMessage.setFont(new Font("Arial",Font.BOLD,16));
+                pausaMessage.setForeground(Color.RED);
+
+                panel.add(pausadoLabel);
+                panel.add(pausaMessage);
+
+                getContentPane().add(panel, BorderLayout.CENTER);
+
+                revalidate();
+                repaint();
             }
+
             pause = false;
-        } else if (evt.getKeyChar() == ' ') {
-            if (!pause) {
+        } else if (evt.getKeyChar() == ' '){
+            if (!pause){
                 ptBoard.setPausado(true);
                 ptBoard.pausar();
                 vpBoard.pausarBall();
+
+                Component[] components = getContentPane().getComponents();
+                for (Component component : components){
+                    if (component instanceof JPanel){
+                        getContentPane().remove(component);
+                    }
+                }
+                revalidate();
+                repaint();
             }
             pause = true;
         }
+
     }
+
 
     public static void main(String args[]) {
         try {
@@ -149,5 +205,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
                 new VentanaPrincipal().setVisible(true);
             }
         });
+
     }
+
 }

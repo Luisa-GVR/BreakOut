@@ -32,6 +32,16 @@ public class VPBoard extends JComponent implements Runnable{
         ball.setxPlataforma(xPlataforma);
     }
 
+    int puntuacionPlataformaBoard;
+
+    public int getPuntuacionPlataformaBoard() {
+        return ball.getPuntuacionPlataforma();
+    }
+
+    public void setPuntuacionPlataformaBoard(int puntuacionPlataformaBoard) {
+        this.puntuacionPlataformaBoard = puntuacionPlataformaBoard;
+    }
+
     public VPBoard(){
 
         ballObj = new Ellipse2D.Double(20,320,20,20);
