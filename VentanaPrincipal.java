@@ -28,7 +28,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         p.add(vpPlatform, BorderLayout.CENTER);
 
 
-
         setContentPane(p);
 
         //cronometro
