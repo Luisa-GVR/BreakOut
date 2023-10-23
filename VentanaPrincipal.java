@@ -10,36 +10,33 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     VPBoard vpBoard;
     VPPlatform vpPlatform;
 
-    Platform platform;
 
     public VentanaPrincipal() {
         initComponents();
         setLocationRelativeTo(null);
 
-
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel p = new JPanel(new BorderLayout());
 
         //agregar pelota
         vpBoard = new VPBoard();
-        JPanel p = new JPanel(new BorderLayout());
-
-
-        p.add(vpBoard, BorderLayout.CENTER);
+        p.add(vpBoard, BorderLayout.NORTH);
 
         //agregar plataforma
 
-        platform = new Platform();
-        vpPlatform = new VPPlatform(platform);
-        p.add(vpPlatform, BorderLayout.SOUTH);
+        vpPlatform = new VPPlatform();
+        vpPlatform.setBounds(0,20,800,20);
+        p.add(vpPlatform, BorderLayout.CENTER);
 
-        mainPanel.add(p, BorderLayout.CENTER);
+
+
+        setContentPane(p);
 
         //cronometro
         ptBoard = new PTBoard();
-        p.add(ptBoard, BorderLayout.EAST);
 
-        setContentPane(mainPanel);
-        // Abrir ventana 2
+
+
+    // Abrir ventana 2
         sv2 = new PuntuacionTimer(ptBoard);
         int x = getX() - sv2.getWidth();
         int y = getY() + (getHeight() - sv2.getHeight()) / 2;
@@ -84,12 +81,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     private void formKeyTyped(KeyEvent evt) {
         // Platform
         if (evt.getKeyChar() == 'd') {
-            System.out.println("derecha");
-            platform.moveRight();
+            if (vpPlatform.platform.getPlatformX()<680){
+                if (pause){
+                    vpPlatform.moverDerecha();
 
+                }
+            }
         } else if (evt.getKeyChar() == 'a') {
-            platform.moveLeft();
-            System.out.println("izquierda");
+            if (vpPlatform.platform.getPlatformX()>0) {
+                if (pause){
+                    vpPlatform.moverIzquierda();
+                }
+            }
         }
 
         //velocidad
@@ -109,10 +112,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
             }
 
-
         }
-
-
 
 
         // Pausar

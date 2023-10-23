@@ -2,55 +2,63 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class Platform {
+public class Platform implements Runnable {
 
-    private static final int WIDTH = 100;
-    private static final int HEIGHT = 20;
-    private static final int SPEED = 5;
+    private Rectangle2D.Double platform;
 
     private int platformX;
+
+    public int getPlatformX() {
+        return platformX;
+    }
+
     private int platformY;
-    private boolean movingLeft;
-    private boolean movingRight;
+    private boolean pausado;
 
-    public Platform() {
-        platformX = (VentanaPrincipal.WIDTH - WIDTH) / 2;
-        platformY = VentanaPrincipal.HEIGHT - HEIGHT - 20;
+    public void pausar() {
+        pausado = !pausado;
     }
 
-    public void moveLeft() {
-        movingLeft = true;
-        movingRight = false;
+    int velocidad = 10;
+
+    public static final int ancho = 100;
+    public static final int alto = 20;
+
+    public Platform(Shape shape) {
+        platform = (Rectangle2D.Double) shape;
+        platformX = 400;
+        platformY = 550;
+        platform.x = platformX;
+        platform.y = platformY;
+
     }
 
-    public void moveRight() {
-        movingRight = true;
-        movingLeft = false;
+    public void moverDerecha(){
+        platformX += velocidad;
+
     }
 
-    public void stopMoving() {
-        movingLeft = false;
-        movingRight = false;
+    public void moverIzquierda(){
+        platformX -= velocidad;
+
     }
 
+    @Override
     public void run() {
+
         while (true) {
-            movePlatform();
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (!pausado) {
+                platform.x = platformX;
             }
+
+            try {
+                Thread.sleep(50L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
         }
     }
-
-    private void movePlatform() {
-        if (movingLeft && platformX > 0) {
-            platformX -= SPEED;
-        }
-        if (movingRight && platformX < VentanaPrincipal.WIDTH - WIDTH) {
-            platformX += SPEED;
-        }
-    }
-
 }
+
+
