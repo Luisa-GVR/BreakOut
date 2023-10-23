@@ -4,35 +4,51 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class VentanaPrincipal extends javax.swing.JFrame implements ActionListener {
     PTBoard ptBoard;
     PuntuacionTimer sv2;
     VPBoard vpBoard;
     VPPlatform vpPlatform;
+    VPBrick vpBrick;
 
     int puntuacionBricks = 0;
     int puntuacionPlataforma = 0;
+
+    ArrayList<Brick> ladrilloABall;
+
+    public ArrayList<Brick> getLadrilloABall() {
+        return ladrilloABall;
+    }
+
+    public void setLadrilloABall(ArrayList<Brick> ladrilloABall) {
+        this.ladrilloABall = ladrilloABall;
+    }
 
     private Timer updateTimer;
 
     public VentanaPrincipal() {
         initComponents();
-
         setLocationRelativeTo(null);
+
+        //ladrillos
+        vpBrick = new VPBrick();
+        vpBrick.setBounds(0, 0, 800, 125);
+
+        //pelota
+        vpBoard = new VPBoard(vpBrick.getLadrillos());
+        vpBoard.setBounds(0, 0, 800, 580);
+
+        //plataforma
+        vpPlatform = new VPPlatform();
+        vpPlatform.setBounds(0,580,800,600);
 
         JPanel p = new JPanel(new BorderLayout());
 
-        //agregar pelota
-        vpBoard = new VPBoard();
-        vpBoard.setBounds(0,0,800,580);
+
         p.add(vpBoard, BorderLayout.CENTER);
-
-
-        //agregar plataforma
-
-        vpPlatform = new VPPlatform();
-        vpPlatform.setBounds(0,580,800,600);
+        p.add(vpBrick, BorderLayout.CENTER);
         p.add(vpPlatform, BorderLayout.CENTER);
 
 
@@ -50,11 +66,17 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         sv2.setLocation(x, y);
         sv2.setVisible(true);
 
+        //update constante
         updateTimer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ptBoard.setPuntuacionTimer(vpBoard.getPuntuacionPlataformaBoard());
                 vpBoard.setxPlataforma(vpPlatform.platform.getPlatformX());
+
+                //vpBrick.getLadrillos() esto si obtiene info
+
+                vpBoard.setLadrillos(vpBrick.getLadrillos());
+
             }
         });
         updateTimer.start();

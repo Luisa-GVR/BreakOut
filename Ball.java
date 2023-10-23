@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Ball implements Runnable{
 
@@ -37,12 +39,13 @@ public class Ball implements Runnable{
 
 
 
-    public Ball(Shape shape) {
-        ball = ( Ellipse2D.Double) shape;
+    public Ball(Shape shape, ArrayList<Brick> ladrillos) {
+        ball = (Ellipse2D.Double) shape;
         ballX = 320;
         ballY = 240;
-        ball.x = ballX ;
+        ball.x = ballX;
         ball.y = ballY;
+        this.ladrillos = ladrillos;
     }
 
     int xPlataforma;
@@ -67,18 +70,32 @@ public class Ball implements Runnable{
 
     boolean gameOver = false;
 
+
+    ArrayList<Brick> ladrillos;
+
+    public ArrayList<Brick> getLadrillos() {
+        return ladrillos;
+    }
+
+    public void setLadrillos(ArrayList<Brick> ladrillos) {
+        this.ladrillos = ladrillos;
+    }
+
+    public Ball(ArrayList<Brick> ladrillos) {
+        this.ladrillos = ladrillos;
+    }
+
     @Override
     public void run() {
+
 
         int sY = 1;
         int sX = 1;
 
+
         while(!gameOver){
 
             if(!pausado){
-                if( ballY < 0 ) {
-                    sY = sY * SIGN;
-                }
 
                 if( ballX < 0 ) {
                     sX = sX * SIGN;
@@ -91,16 +108,30 @@ public class Ball implements Runnable{
                 if (ballY > 520 && ballY < 532){
                     if (ballX >= xPlataforma -20 && ballX <= (xPlataforma+110)){
                         setPuntuacionPlataforma(getPuntuacionPlataforma() +1);
+
                         sY = sY * SIGN;
                     }
+                }
 
+                for(Brick brick : ladrillos){
+                    if (!brick.isRoto()){
+                        if (ball.getBounds2D().intersects(brick.getBounds2D())){
+                            brick.setRoto(true);
+                            setPuntuacionPlataforma(getPuntuacionPlataforma() +1);
+
+                            sX = sX * SIGN;
+                            sY = sY * SIGN;
+                        }
+                    }
+                }
+
+                if( ballY < 0 ) {
+                    sY = sY * SIGN;
                 }
 
                 if( ballY > (MAX_Y - 55) ) {
                     System.out.println("perder");
                     pausar();
-
-
                 }
 
                 ballX = ballX + (velocidad * sX) ;
@@ -108,8 +139,6 @@ public class Ball implements Runnable{
                 ball.x = ballX ;
                 ball.y = ballY;
             }
-
-
 
             try {
                 Thread.sleep(80L);

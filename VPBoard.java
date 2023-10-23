@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
 public class VPBoard extends JComponent implements Runnable{
 
@@ -10,6 +11,16 @@ public class VPBoard extends JComponent implements Runnable{
     Ellipse2D.Double ballObj;
     Ball ball;
 
+    ArrayList<Brick> ladrillos;
+
+    public ArrayList<Brick> getLadrillos() {
+        return ball.getLadrillos();
+    }
+
+    public void setLadrillos(ArrayList<Brick> ladrillos) {
+        this.ladrillos = ladrillos;
+        ball.setLadrillos(ladrillos);
+    }
 
     int velocidad = 10;
 
@@ -42,15 +53,16 @@ public class VPBoard extends JComponent implements Runnable{
         this.puntuacionPlataformaBoard = puntuacionPlataformaBoard;
     }
 
-    public VPBoard(){
 
-        ballObj = new Ellipse2D.Double(20,320,20,20);
-        ball = new Ball(ballObj);
+    public VPBoard(ArrayList<Brick> ladrillos) {
+        ballObj = new Ellipse2D.Double(20, 320, 20, 20);
+        ball = new Ball(ballObj, ladrillos);
         ballAnimator = new Thread(ball);
         ballAnimator.start();
-        refresher= new Thread( this);
+        refresher = new Thread(this);
         refresher.start();
     }
+
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
