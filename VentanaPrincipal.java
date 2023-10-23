@@ -69,6 +69,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     }
 
     private void formKeyTyped(KeyEvent evt) {
+
+        vpBoard.setxPlataforma( vpPlatform.platform.getPlatformX());
+
         // Platform
         if (evt.getKeyChar() == 'd') {
             if (vpPlatform.platform.getPlatformX()<680){
