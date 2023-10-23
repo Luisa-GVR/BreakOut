@@ -29,7 +29,7 @@ public class Ball implements Runnable{
 //borrar estos???, son prueba, dejaran de funcionar cuando pongamos los ladrillos XD
 
     public static final int MAX_X = 800;
-    public static final int MAX_Y = 300;
+    public static final int MAX_Y = 600;
     public static final int DX = 10;
     public static final int DY = 10;
 

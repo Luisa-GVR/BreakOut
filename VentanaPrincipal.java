@@ -19,12 +19,14 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
         //agregar pelota
         vpBoard = new VPBoard();
-        p.add(vpBoard, BorderLayout.NORTH);
+        vpBoard.setBounds(0,0,800,580);
+        p.add(vpBoard, BorderLayout.CENTER);
+
 
         //agregar plataforma
 
         vpPlatform = new VPPlatform();
-        vpPlatform.setBounds(0,20,800,20);
+        vpPlatform.setBounds(0,580,800,600);
         p.add(vpPlatform, BorderLayout.CENTER);
 
 
@@ -55,17 +57,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
                 formKeyTyped(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 300, Short.MAX_VALUE)
-        );
 
         pack();
     }
