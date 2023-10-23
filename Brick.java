@@ -37,7 +37,6 @@ public class Brick implements  Runnable {
         this.color = color;
     }
 
-    // seria un 16 x 5, por lo que seria 0,800 x / 0, 125 y
 
     public void setRoto(boolean roto) {
         this.roto = roto;

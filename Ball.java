@@ -87,7 +87,8 @@ public class Ball implements Runnable{
 
     @Override
     public void run() {
-
+        Random random = new Random();
+        int randomNumber = (int) ((random.nextDouble() * 2) - 1);
 
         int sY = 1;
         int sX = 1;
@@ -98,18 +99,18 @@ public class Ball implements Runnable{
             if(!pausado){
 
                 if( ballX < 0 ) {
-                    sX = sX * SIGN;
+                    sX = (sX * SIGN) + randomNumber;
                 }
 
                 if( ballX > (MAX_X - 40) ) {
-                    sX = sX * SIGN;
+                    sX = (sX * SIGN) + randomNumber;
                 }
 
                 if (ballY > 520 && ballY < 532){
                     if (ballX >= xPlataforma -20 && ballX <= (xPlataforma+110)){
                         setPuntuacionPlataforma(getPuntuacionPlataforma() +1);
 
-                        sY = sY * SIGN;
+                        sY = (sY * SIGN) + randomNumber;
                     }
                 }
 
@@ -119,14 +120,14 @@ public class Ball implements Runnable{
                             brick.setRoto(true);
                             setPuntuacionPlataforma(getPuntuacionPlataforma() +1);
 
-                            sX = sX * SIGN;
-                            sY = sY * SIGN;
+                            sX = (sX * SIGN) + randomNumber;
+                            sY = (sY * SIGN) + randomNumber;
                         }
                     }
                 }
 
                 if( ballY < 0 ) {
-                    sY = sY * SIGN;
+                    sY = (sY * SIGN) + randomNumber;
                 }
 
                 if( ballY > (MAX_Y - 55) ) {
