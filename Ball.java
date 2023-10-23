@@ -50,15 +50,15 @@ public class Ball implements Runnable{
         this.xPlataforma = xPlataforma;
     }
 
+    boolean gameOver = false;
+
     @Override
     public void run() {
 
         int sY = 1;
         int sX = 1;
 
-        while(true){
-
-            System.out.println(xPlataforma);
+        while(!gameOver){
 
             if(!pausado){
                 if( ballY < 0 ) {
@@ -81,7 +81,8 @@ public class Ball implements Runnable{
                 }
 
                 if( ballY > (MAX_Y - 55) ) {
-                    System.out.println("Haz perdido");
+
+                    System.out.println("perder");
                 }
                 ballX = ballX + (velocidad * sX) ;
                 ballY = ballY + (velocidad * sY);
@@ -92,7 +93,7 @@ public class Ball implements Runnable{
 
 
             try {
-                Thread.sleep(50L);
+                Thread.sleep(100L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
