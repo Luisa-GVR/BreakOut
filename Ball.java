@@ -73,8 +73,8 @@ public class Ball implements Runnable{
                     sX = sX * SIGN;
                 }
 
-                if (ballY == 530){
-                    if (ballX >= xPlataforma && ballX <= (xPlataforma+100)){
+                if (ballY > 520 && ballY < 532){
+                    if (ballX >= xPlataforma -20 && ballX <= (xPlataforma+110)){
                         sY = sY * SIGN;
                     }
 
@@ -93,7 +93,7 @@ public class Ball implements Runnable{
 
 
             try {
-                Thread.sleep(100L);
+                Thread.sleep(80L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
