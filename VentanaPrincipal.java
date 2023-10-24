@@ -12,6 +12,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     VPBoard vpBoard;
     VPPlatform vpPlatform;
     VPBrick vpBrick;
+    JPanel panel = null;
+
+    private Ball ball;
+
 
     int puntuacionPlataforma = 0;
 
@@ -71,6 +75,8 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         });
         updateTimer.start();
 
+
+
     }
 
     @SuppressWarnings("unchecked")
@@ -124,6 +130,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
             if (vpBoard.getVelocidad() < 20){
                 vpBoard.increaseBallSpeed();
                 System.out.println(vpBoard.getVelocidad());
+
             }
 
 
@@ -146,18 +153,23 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
                 ptBoard.pausar();
                 vpBoard.pausarBall();
 
-                JPanel panel = new JPanel(new GridLayout(2,1));
+                if (panel != null){
+                    JLayeredPane layeredPane = getLayeredPane();
+                    layeredPane.remove(panel);
+                    panel = null;
+                }else{
+                panel = new JPanel(new GridLayout(2,1));
                 Border borde = BorderFactory.createLineBorder(Color.BLACK,20 );
                 panel.setBorder(borde);
 
-                JLabel pausadoLabel = new JLabel("P A U S A");
+                JLabel pausadoLabel = new JLabel("P A U S E");
                 pausadoLabel.setHorizontalAlignment(JLabel.CENTER);
                 pausadoLabel.setVerticalAlignment(JLabel.BOTTOM);
                 pausadoLabel.setFont(new Font("Arial", Font.BOLD, 30));
                 pausadoLabel.setForeground(Color.RED);
-                ;
 
-                JLabel pausaMessage = new JLabel ("Presiona 'Espacio' para continuar");
+
+                JLabel pausaMessage = new JLabel ("Press the 'Spacebar' to continue");
                 pausaMessage.setHorizontalAlignment(JLabel.CENTER);
                 pausaMessage.setVerticalAlignment(JLabel.TOP);
                 pausaMessage.setFont(new Font("Arial",Font.BOLD,16));
@@ -166,10 +178,14 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
                 panel.add(pausadoLabel);
                 panel.add(pausaMessage);
 
-                getContentPane().add(panel, BorderLayout.CENTER);
+                JLayeredPane layeredPane = getLayeredPane();
+                layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
+
+                panel.setBounds(0, 0, 784, 564);
 
                 revalidate();
                 repaint();
+                }
             }
 
             pause = false;
@@ -179,12 +195,12 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
                 ptBoard.pausar();
                 vpBoard.pausarBall();
 
-                Component[] components = getContentPane().getComponents();
-                for (Component component : components){
-                    if (component instanceof JPanel){
-                        getContentPane().remove(component);
-                    }
+                if (panel != null) {
+                    JLayeredPane layeredPane = getLayeredPane();
+                    layeredPane.remove(panel);
+                    panel = null; // Marca el panel como null para indicar que ha sido eliminado
                 }
+
                 revalidate();
                 repaint();
             }
@@ -192,6 +208,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         }
 
     }
+
 
 
     public static void main(String args[]) {

@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Ball implements Runnable{
     public static final int SIGN = -1;
     private int ballX;
     private int ballY;
+
 
     private boolean pausado;
 
@@ -146,9 +148,10 @@ public class Ball implements Runnable{
                     sY = sY * SIGN;
                 }
 
-                if( ballY == (MAX_Y - 55) ) {
+                if( ballY == (MAX_Y - 60) ) {
                     System.out.println("perder");
                     pausar();
+
                 }
 
 

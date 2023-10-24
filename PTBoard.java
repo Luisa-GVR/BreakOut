@@ -62,7 +62,7 @@ public class PTBoard extends JComponent implements Runnable {
     public void run() {
         startTime = System.currentTimeMillis();
         while (true) {
-            System.out.println(puntuacionTimer);
+            //System.out.println(puntuacionTimer);
             if (!pausado) {
                 long currentTime = System.currentTimeMillis();
                 elapsedTime = currentTime - startTime;
