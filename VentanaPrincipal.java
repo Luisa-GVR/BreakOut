@@ -18,13 +18,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
     ArrayList<Brick> ladrilloABall;
 
-    public ArrayList<Brick> getLadrilloABall() {
-        return ladrilloABall;
-    }
 
-    public void setLadrilloABall(ArrayList<Brick> ladrilloABall) {
-        this.ladrilloABall = ladrilloABall;
-    }
 
     private Timer updateTimer;
 

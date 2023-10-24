@@ -24,18 +24,9 @@ public class Ball implements Runnable{
         this.velocidad = velocidad + 1;
     }
 
-    public int getVelocidad() {
-        return velocidad;
-    }
-
-
-
-//borrar estos???, son prueba, dejaran de funcionar cuando pongamos los ladrillos XD
 
     public static final int MAX_X = 800;
     public static final int MAX_Y = 600;
-    public static final int DX = 10;
-    public static final int DY = 10;
 
 
 
@@ -60,9 +51,6 @@ public class Ball implements Runnable{
         this.puntuacionPlataforma = puntuacionPlataforma;
     }
 
-    public int getxPlataforma() {
-        return xPlataforma;
-    }
 
     public void setxPlataforma(int xPlataforma) {
         this.xPlataforma = xPlataforma;
@@ -81,14 +69,9 @@ public class Ball implements Runnable{
         this.ladrillos = ladrillos;
     }
 
-    public Ball(ArrayList<Brick> ladrillos) {
-        this.ladrillos = ladrillos;
-    }
 
     @Override
     public void run() {
-        Random random = new Random();
-        int randomNumber = (int) ((random.nextDouble() * 2) - 1);
 
         int sY = 1;
         int sX = 1;
@@ -98,19 +81,37 @@ public class Ball implements Runnable{
 
             if(!pausado){
 
-                if( ballX < 0 ) {
-                    sX = (sX * SIGN) + randomNumber;
+                if( ballX == 0 ) {
+                    if (sX == 0){
+                        sX = -1;
+                    }
+                    sX = sX * SIGN;
                 }
 
-                if( ballX > (MAX_X - 40) ) {
-                    sX = (sX * SIGN) + randomNumber;
+                if( ballX == (MAX_X - 40) ) {
+                    if (sX == 0){
+                        sX = 1;
+                    }
+                    sX = sX * SIGN;
                 }
 
                 if (ballY > 520 && ballY < 532){
+
                     if (ballX >= xPlataforma -20 && ballX <= (xPlataforma+110)){
                         setPuntuacionPlataforma(getPuntuacionPlataforma() +1);
+                        sY = -sY;
 
-                        sY = (sY * SIGN) + randomNumber;
+                        if (ballX >= xPlataforma-20 && ballX <= xPlataforma+29){ //izquierda, bota izquierda
+                            sX = -1;
+                        }
+
+                        if (ballX >= xPlataforma+30 && ballX <= xPlataforma+60){  //centro, directo
+                            sX = 0;
+                        }
+
+                        if (ballX >= xPlataforma+61 && ballX <= xPlataforma+110){ //derecha, bota derecha
+                            sX = 1;
+                        }
                     }
                 }
 
@@ -120,20 +121,21 @@ public class Ball implements Runnable{
                             brick.setRoto(true);
                             setPuntuacionPlataforma(getPuntuacionPlataforma() +1);
 
-                            sX = (sX * SIGN) + randomNumber;
-                            sY = (sY * SIGN) + randomNumber;
+                            sX = sX * SIGN;
+                            sY = sY * SIGN;
                         }
                     }
                 }
 
-                if( ballY < 0 ) {
-                    sY = (sY * SIGN) + randomNumber;
+                if( ballY == 0 ) {
+                    sY = sY * SIGN;
                 }
 
-                if( ballY > (MAX_Y - 55) ) {
+                if( ballY == (MAX_Y - 55) ) {
                     System.out.println("perder");
                     pausar();
                 }
+
 
                 ballX = ballX + (velocidad * sX) ;
                 ballY = ballY + (velocidad * sY);
@@ -147,7 +149,10 @@ public class Ball implements Runnable{
                 throw new RuntimeException(e);
             }
 
+
         }
 
     }
+
+
 }

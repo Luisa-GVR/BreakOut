@@ -11,9 +11,6 @@ public class VPBrick extends JComponent {
         return ladrillos;
     }
 
-    public void setLadrillos(ArrayList<Brick> ladrillos) {
-        this.ladrillos = ladrillos;
-    }
 
     public VPBrick() {
         ladrillos = new ArrayList<>();
@@ -34,7 +31,7 @@ public class VPBrick extends JComponent {
 
         for (Brick brick : ladrillos) {
             if (!brick.isRoto()) {
-                Stroke borde = new BasicStroke(2); // Grosor del borde
+                Stroke borde = new BasicStroke(2);
                 g2.setStroke(borde);
                 g.setColor(brick.getColor());
                 g2.fill(new Rectangle2D.Double(brick.getBrickX(), brick.getBrickY(), brick.getLargo(), brick.getAltura()));

@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class Brick implements  Runnable {
+public class Brick{
 
     int brickX;
     int brickY;
@@ -51,8 +51,5 @@ public class Brick implements  Runnable {
         return new Rectangle2D.Double(brickX, brickY, largo, altura);
     }
 
-    @Override
-    public void run() {
 
-    }
 }

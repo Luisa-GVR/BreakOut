@@ -12,6 +12,7 @@ public class Platform implements Runnable {
         return platformX;
     }
 
+
     private int platformY;
     private boolean pausado;
 
