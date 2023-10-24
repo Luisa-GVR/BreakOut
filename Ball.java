@@ -81,14 +81,14 @@ public class Ball implements Runnable{
 
             if(!pausado){
 
-                if( ballX == 0 ) {
+                if( ballX <= 0 ) {
                     if (sX == 0){
                         sX = -1;
                     }
                     sX = sX * SIGN;
                 }
 
-                if( ballX == (MAX_X - 40) ) {
+                if( ballX >= (MAX_X - 40) ) {
                     if (sX == 0){
                         sX = 1;
                     }
