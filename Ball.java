@@ -142,7 +142,7 @@ public class Ball implements Runnable{
                     }
                 }
 
-                if( ballY == 0 ) {
+                if( ballY <= 0 ) {
                     sY = sY * SIGN;
                 }
 

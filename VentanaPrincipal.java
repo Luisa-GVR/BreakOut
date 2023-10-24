@@ -13,10 +13,8 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     VPPlatform vpPlatform;
     VPBrick vpBrick;
 
-    int puntuacionBricks = 0;
     int puntuacionPlataforma = 0;
 
-    ArrayList<Brick> ladrilloABall;
 
 
 
@@ -66,8 +64,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
             public void actionPerformed(ActionEvent e) {
                 ptBoard.setPuntuacionTimer(vpBoard.getPuntuacionPlataformaBoard());
                 vpBoard.setxPlataforma(vpPlatform.platform.getPlatformX());
-
-                //vpBrick.getLadrillos() esto si obtiene info
 
                 vpBoard.setLadrillos(vpBrick.getLadrillos());
 
