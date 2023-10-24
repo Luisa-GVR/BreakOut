@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 public class VPBrick extends JComponent {
 
+    int filasBricks = 5;
+    int columnaBricks = 16;
+
+    int tamanioLongitud = (800/columnaBricks) + 1;
+
     private ArrayList<Brick> ladrillos;
 
     public ArrayList<Brick> getLadrillos() {
@@ -15,9 +20,9 @@ public class VPBrick extends JComponent {
     public VPBrick() {
         ladrillos = new ArrayList<>();
 
-        for (int fila = 0; fila < 5; fila++) {
-            for (int columna = 0; columna < 16; columna++) {
-                int brickX = columna * 49;
+        for (int fila = 0; fila < filasBricks; fila++) {
+            for (int columna = 0; columna < columnaBricks; columna++) {
+                int brickX = columna * tamanioLongitud;
                 int brickY = fila * 25;
                 Brick brick = new Brick(brickX, brickY, false, getColorPorIndice(fila));
                 ladrillos.add(brick);

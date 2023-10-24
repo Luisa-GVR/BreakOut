@@ -28,7 +28,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
         //ladrillos
         vpBrick = new VPBrick();
-        vpBrick.setBounds(0, 0, 800, 125);
+        vpBrick.setBounds(0, 0, 800, 400);
 
         //pelota
         vpBoard = new VPBoard(vpBrick.getLadrillos());

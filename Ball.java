@@ -120,9 +120,24 @@ public class Ball implements Runnable{
                         if (ball.getBounds2D().intersects(brick.getBounds2D())){
                             brick.setRoto(true);
                             setPuntuacionPlataforma(getPuntuacionPlataforma() +1);
-
-                            sX = sX * SIGN;
                             sY = sY * SIGN;
+
+
+                            //los bricks son 50x25
+                            if (ballX >= brick.getBrickX()  && ballX <= brick.getBrickX() + 15 ){ //izquierda, bota izquierda
+                                sX = sX * -1;
+                            }
+
+                            if (ballX >= brick.getBrickX()+16 && ballX <=brick.getBrickX() +34 ){  //centro, directo
+                                sX = 0;
+                            }
+
+                            if (ballX >= brick.getBrickX()+35  && ballX <= brick.getBrickX()+50 ){ //derecha, bota derecha
+                                sX = sX;
+                            }
+
+
+
                         }
                     }
                 }
