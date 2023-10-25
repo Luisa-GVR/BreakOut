@@ -10,10 +10,6 @@ public class PTBoard extends JComponent implements Runnable {
     private Font largeFont;
 
 
-    //Hola zazu, probablemente me estes leyendo, te recuerdo que la puntuacion
-    // que debe de mostrar es puntuacionTimer, almenos por ahora
-    // luego que terminemos bricks vemos que mas jeje
-    //hola soy un comentario :3
 
     Thread refresher;
     Thread timeAnimator;
@@ -22,6 +18,10 @@ public class PTBoard extends JComponent implements Runnable {
 
     public void setPuntuacionTimer(int puntuacionTimer) {
         this.puntuacionTimer = puntuacionTimer;
+    }
+
+    public int getPuntuacionTimer() {
+        return puntuacionTimer;
     }
 
     public void setPausado(boolean pausado) {
@@ -34,6 +34,12 @@ public class PTBoard extends JComponent implements Runnable {
         timeAnimator.start();
         refresher = new Thread(this);
         refresher.start();
+        reiniciar();
+    }
+    public void reiniciar() {
+        elapsedTime = 0;
+        puntuacionTimer = 0;
+        startTime = System.currentTimeMillis();
     }
 
     @Override
@@ -62,7 +68,6 @@ public class PTBoard extends JComponent implements Runnable {
     public void run() {
         startTime = System.currentTimeMillis();
         while (true) {
-            //System.out.println(puntuacionTimer);
             if (!pausado) {
                 long currentTime = System.currentTimeMillis();
                 elapsedTime = currentTime - startTime;
@@ -80,9 +85,6 @@ public class PTBoard extends JComponent implements Runnable {
         pausado = !pausado;
         if (!pausado) {
             startTime = System.currentTimeMillis() - elapsedTime;
-            System.out.println("resumido...");
-        } else {
-            System.out.println("pausado...");
         }
     }
 }

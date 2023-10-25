@@ -11,6 +11,8 @@ public class VPBoard extends JComponent implements Runnable{
     Ellipse2D.Double ballObj;
     Ball ball;
 
+
+
     ArrayList<Brick> ladrillos;
 
     public ArrayList<Brick> getLadrillos() {
@@ -20,6 +22,12 @@ public class VPBoard extends JComponent implements Runnable{
     public void setLadrillos(ArrayList<Brick> ladrillos) {
         this.ladrillos = ladrillos;
         ball.setLadrillos(ladrillos);
+    }
+
+    public void reiniciar() {
+        ballObj.setFrame(20, 320, 20, 20);
+        ball.reiniciar();
+        velocidad = 10;
     }
 
     int velocidad = 10;
@@ -52,6 +60,7 @@ public class VPBoard extends JComponent implements Runnable{
     public void setPuntuacionPlataformaBoard(int puntuacionPlataformaBoard) {
         this.puntuacionPlataformaBoard = puntuacionPlataformaBoard;
     }
+
 
 
     public VPBoard(ArrayList<Brick> ladrillos) {

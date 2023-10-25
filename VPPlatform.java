@@ -44,6 +44,10 @@ public class VPPlatform extends JComponent implements Runnable {
         g2.fill(platformObj);
         g2.setColor(Color.BLACK);
     }
+    public void reiniciar(){
+        platformObj.setRect(400,550,100,20);
+        platform.reiniciar();
+    }
 
 
 

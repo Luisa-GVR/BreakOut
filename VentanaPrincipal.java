@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 public class VentanaPrincipal extends javax.swing.JFrame implements ActionListener {
     PTBoard ptBoard;
@@ -13,6 +12,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     VPPlatform vpPlatform;
     VPBrick vpBrick;
     JPanel panel = null;
+    JPanel panelV = null;
 
     private Ball ball;
 
@@ -23,6 +23,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
 
     private Timer updateTimer;
+
+
+
+
 
     public VentanaPrincipal() {
         initComponents();
@@ -56,24 +60,84 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
 
     // Abrir ventana 2
-        sv2 = new PuntuacionTimer(ptBoard);
+        sv2 = new PuntuacionTimer(ptBoard,0);
         int x = getX() - sv2.getWidth();
         int y = getY() + (getHeight() - sv2.getHeight()) / 2;
         sv2.setLocation(x, y);
         sv2.setVisible(true);
+
+        panelV = new JPanel(new GridLayout(1,1));
+        JLabel velocidad = new JLabel("Ball Speed: " + vpBoard.getVelocidad());
+        velocidad.setHorizontalAlignment(JLabel.RIGHT);
+        velocidad.setFont(new Font("Arial",Font.BOLD,16));
+        velocidad.setForeground(Color.RED);
+        panelV.add(velocidad);
 
         //update constante
         updateTimer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ptBoard.setPuntuacionTimer(vpBoard.getPuntuacionPlataformaBoard());
+                ptBoard.setPuntuacionTimer(vpBoard.getPuntuacionPlataformaBoard());
                 vpBoard.setxPlataforma(vpPlatform.platform.getPlatformX());
-
                 vpBoard.setLadrillos(vpBrick.getLadrillos());
+                //AGREGAR CONTADOR DE VELOCIDAD :)
+                velocidad.setText("Ball Speed: " + vpBoard.getVelocidad());
+                velocidad.setVerticalAlignment(JLabel.BOTTOM);
+                getContentPane().add(panelV);
+                revalidate();
+                repaint();
 
-            }
+                if ((vpBoard.ball.getLadrilloCounter()) == 80){
+                    System.out.println("ganaste");
+                }
+
+
+                // vpBoard.ball.getBallY() obtiene Y, 540 lose
+                if ((vpBoard.ball.getBallY() > 540)){
+
+
+                    ptBoard.setPausado(false);
+                    ptBoard.pausar();
+                    vpBoard.pausarBall();
+
+
+                            panel = new JPanel(new GridLayout(2,1));
+                            Border borde = BorderFactory.createLineBorder(Color.BLACK,20 );
+                            panel.setBorder(borde);
+
+                            JLabel pausadoLabel = new JLabel("G A M E  O V E R");
+                            pausadoLabel.setHorizontalAlignment(JLabel.CENTER);
+                            pausadoLabel.setVerticalAlignment(JLabel.BOTTOM);
+                            pausadoLabel.setFont(new Font("Arial", Font.BOLD, 30));
+                            pausadoLabel.setForeground(Color.RED);
+
+
+                            JLabel pausaMessage = new JLabel ("");
+                            pausaMessage.setHorizontalAlignment(JLabel.CENTER);
+                            pausaMessage.setVerticalAlignment(JLabel.TOP);
+                            pausaMessage.setFont(new Font("Arial",Font.BOLD,16));
+                            pausaMessage.setForeground(Color.RED);
+
+                            panel.add(pausadoLabel);
+                            panel.add(pausaMessage);
+
+                            JLayeredPane layeredPane = getLayeredPane();
+                            layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
+
+                            panel.setBounds(0, 0, 786, 564);
+
+                            revalidate();
+                            repaint();
+
+                    }
+                sv2.actualizarPuntuacion(ptBoard.getPuntuacionTimer());
+                }
+
         });
         updateTimer.start();
+
+
 
 
 
@@ -96,6 +160,27 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         pack();
     }
 
+    //Aun no se utiliza reiniciarJuego por problemas tecnicos xd --------------------------------------------------------
+    private void reiniciarJuego() {
+
+        vpPlatform.reiniciar(); // Restablecer la posición de la plataforma
+        vpBoard.reiniciar(); // Restablecer la velocidad de la pelota
+        vpBrick.reiniciar(); // Restablecer los ladrillos
+
+        if (panel != null) {
+            JLayeredPane layeredPane = getLayeredPane();
+            layeredPane.remove(panel);
+            panel = null;
+        }
+
+        ptBoard.reiniciar();
+        ptBoard.setPausado(true);
+        vpBoard.reiniciar();
+
+        revalidate();
+        repaint();
+    }
+
     boolean pause = true;
 
     @Override
@@ -104,7 +189,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     }
 
 
+
     private void formKeyTyped(KeyEvent evt) {
+
 
 
         // Platform
@@ -129,7 +216,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
             if (vpBoard.getVelocidad() < 20){
                 vpBoard.increaseBallSpeed();
-                System.out.println(vpBoard.getVelocidad());
+
 
             }
 
@@ -138,7 +225,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
             if (vpBoard.getVelocidad() > 10){
                 vpBoard.decreaseBallSpeed();
-                System.out.println(vpBoard.getVelocidad());
 
             }
 
@@ -181,7 +267,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
                 JLayeredPane layeredPane = getLayeredPane();
                 layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
 
-                panel.setBounds(0, 0, 784, 564);
+                panel.setBounds(0, 0, 786, 564);
 
                 revalidate();
                 repaint();

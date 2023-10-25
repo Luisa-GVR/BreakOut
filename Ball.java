@@ -41,6 +41,7 @@ public class Ball implements Runnable{
         this.ladrillos = ladrillos;
     }
 
+
     int xPlataforma;
 
     int puntuacionPlataforma = 0;
@@ -60,6 +61,9 @@ public class Ball implements Runnable{
 
     boolean gameOver = false;
 
+    public int getBallY() {
+        return ballY;
+    }
 
     ArrayList<Brick> ladrillos;
 
@@ -71,6 +75,19 @@ public class Ball implements Runnable{
         this.ladrillos = ladrillos;
     }
 
+    int ladrilloCounter = 0;
+
+    public int getLadrilloCounter() {
+        return ladrilloCounter;
+    }
+
+    public void setLadrilloCounter(int ladrilloCounter) {
+        this.ladrilloCounter = ladrilloCounter;
+    }
+    public void reiniciar(){
+        ballX = 320;
+        ballY = 240;
+    }
 
     @Override
     public void run() {
@@ -97,7 +114,7 @@ public class Ball implements Runnable{
                     sX = sX * SIGN;
                 }
 
-                if (ballY > 520 && ballY < 532){
+                if (ballY > 520 && ballY < 538){
 
                     if (ballX >= xPlataforma -20 && ballX <= (xPlataforma+110)){
                         setPuntuacionPlataforma(getPuntuacionPlataforma() +1);
@@ -120,6 +137,8 @@ public class Ball implements Runnable{
                 for(Brick brick : ladrillos){
                     if (!brick.isRoto()){
                         if (ball.getBounds2D().intersects(brick.getBounds2D())){
+                            setLadrilloCounter(getLadrilloCounter() + 1);
+
                             brick.setRoto(true);
                             setPuntuacionPlataforma(getPuntuacionPlataforma() +1);
                             sY = sY * SIGN;
@@ -146,12 +165,6 @@ public class Ball implements Runnable{
 
                 if( ballY <= 0 ) {
                     sY = sY * SIGN;
-                }
-
-                if( ballY == (MAX_Y - 60) ) {
-                    System.out.println("perder");
-                    pausar();
-
                 }
 
 

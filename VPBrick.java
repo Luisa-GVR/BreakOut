@@ -29,6 +29,11 @@ public class VPBrick extends JComponent {
             }
         }
     }
+    public void reiniciar(){
+        for (Brick brick : ladrillos){
+            brick.setRoto(false);
+        }
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

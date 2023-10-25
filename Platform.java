@@ -34,6 +34,14 @@ public class Platform implements Runnable {
 
     }
 
+    public void reiniciar(){
+        platformX = 400;
+        platformY = 550;
+
+        platform.x = platformX;
+        platform.y = platformY;
+    }
+
     public void moverDerecha(){
         platformX += velocidad;
 
