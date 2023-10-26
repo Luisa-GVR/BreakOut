@@ -67,7 +67,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         sv2.setVisible(true);
 
         panelV = new JPanel(new GridLayout(1,1));
-        JLabel velocidad = new JLabel("Ball Speed: " + vpBoard.getVelocidad());
+        JLabel velocidad = new JLabel("Ball Speed: " + (vpBoard.getVelocidad()-10));
         velocidad.setHorizontalAlignment(JLabel.RIGHT);
         velocidad.setFont(new Font("Arial",Font.BOLD,16));
         velocidad.setForeground(Color.RED);
@@ -82,7 +82,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
                 vpBoard.setxPlataforma(vpPlatform.platform.getPlatformX());
                 vpBoard.setLadrillos(vpBrick.getLadrillos());
                 //AGREGAR CONTADOR DE VELOCIDAD :)
-                velocidad.setText("Ball Speed: " + vpBoard.getVelocidad());
+                velocidad.setText("Ball Speed: " + (vpBoard.getVelocidad()-9));
                 velocidad.setVerticalAlignment(JLabel.BOTTOM);
                 getContentPane().add(panelV);
                 revalidate();
@@ -214,7 +214,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         //velocidad
         if (evt.getKeyChar() == '+') {
 
-            if (vpBoard.getVelocidad() < 20){
+            if (vpBoard.getVelocidad() < 18){
                 vpBoard.increaseBallSpeed();
 
 

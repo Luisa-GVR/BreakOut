@@ -114,6 +114,7 @@ public class Ball implements Runnable{
                     sX = sX * SIGN;
                 }
 
+
                 if (ballY > 520 && ballY < 538){
 
                     if (ballX >= xPlataforma -20 && ballX <= (xPlataforma+110)){
