@@ -214,7 +214,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         //velocidad
         if (evt.getKeyChar() == '+') {
 
-            if (vpBoard.getVelocidad() < 18){
+            if (vpBoard.getVelocidad() < 17){
                 vpBoard.increaseBallSpeed();
 
 
