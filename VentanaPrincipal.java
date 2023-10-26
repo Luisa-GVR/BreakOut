@@ -196,7 +196,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
         // Platform
         if (evt.getKeyChar() == 'd' || evt.getKeyChar() == 'D') {
-            if (vpPlatform.platform.getPlatformX()<680){
+            if (vpPlatform.platform.getPlatformX()<700){
                 if (pause){
                     vpPlatform.moverDerecha();
 
